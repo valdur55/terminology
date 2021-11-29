@@ -2775,6 +2775,34 @@ end:
    evas_object_del(obj);
 }
 
+static void
+_cb_ctxp_sel_open_as_search(void *data,
+                         Evas_Object *obj,
+                         void *_event EINA_UNUSED)
+{
+   Evas_Object *term = data;
+   Termio *sd =  evas_object_smart_data_get(term);
+
+   EINA_SAFETY_ON_NULL_RETURN(sd);
+
+   termio_take_selection(data, ELM_SEL_TYPE_PRIMARY);
+
+   if (!sd->have_sel || !sd->sel_str)
+     goto end;
+
+    Eina_Strbuf *strb;
+
+    strb = eina_strbuf_new();
+    eina_strbuf_append(strb, sd->config->helper.web_search_url);
+    eina_strbuf_append(strb, sd->sel_str);
+
+   open_url(sd->config, eina_strbuf_string_steal(strb));
+
+end:
+   sd->ctxpopup = NULL;
+   evas_object_del(obj);
+}
+
 
 void
 termio_handle_right_click(Evas_Event_Mouse_Down *ev, Termio *sd,
@@ -2790,6 +2818,8 @@ termio_handle_right_click(Evas_Event_Mouse_Down *ev, Termio *sd,
                                  _cb_ctxp_sel_copy, sd->self);
         elm_ctxpopup_item_append(ctxp, _("Open as URL"), NULL,
                                  _cb_ctxp_sel_open_as_url, sd->self);
+         elm_ctxpopup_item_append(ctxp, _("Open as web search"), NULL,
+                                  _cb_ctxp_sel_open_as_search, sd->self);
         evas_object_move(ctxp, ev->canvas.x, ev->canvas.y);
         evas_object_show(ctxp);
         evas_object_smart_callback_add(ctxp, "dismissed",

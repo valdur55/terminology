@@ -51,6 +51,7 @@ struct _Config
    } font;
    struct {
       const char    *email;
+      const char    *web_search_url;
       struct {
          const char    *general;
          const char    *video;

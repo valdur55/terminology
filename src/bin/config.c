@@ -89,7 +89,9 @@ config_init(void)
      (edd_base, Config, "font.bolditalic", font.bolditalic, EET_T_UCHAR);
    EET_DATA_DESCRIPTOR_ADD_BASIC
      (edd_base, Config, "helper.email", helper.email, EET_T_STRING);
-   EET_DATA_DESCRIPTOR_ADD_BASIC
+    EET_DATA_DESCRIPTOR_ADD_BASIC
+      (edd_base, Config, "helper.web_search_url", helper.web_search_url, EET_T_STRING);
+    EET_DATA_DESCRIPTOR_ADD_BASIC
      (edd_base, Config, "helper.url.general", helper.url.general, EET_T_STRING);
    EET_DATA_DESCRIPTOR_ADD_BASIC
      (edd_base, Config, "helper.url.video", helper.url.video, EET_T_STRING);
@@ -277,6 +279,7 @@ config_sync(const Config *config_src, Config *config)
    config->font.bolditalic = config_src->font.bolditalic;
    config->helper.inline_please = config_src->helper.inline_please;
    eina_stringshare_replace(&(config->helper.email), config_src->helper.email);
+   eina_stringshare_replace(&(config->helper.web_search_url), config_src->helper.web_search_url);
    eina_stringshare_replace(&(config->helper.url.general), config_src->helper.url.general);
    eina_stringshare_replace(&(config->helper.url.video), config_src->helper.url.video);
    eina_stringshare_replace(&(config->helper.url.image), config_src->helper.url.image);
@@ -542,6 +545,7 @@ config_new(void)
         config->font.size = 10;
         config->font.bolditalic = EINA_TRUE;
         config->helper.email = eina_stringshare_add("xdg-email");
+        config->helper.web_search_url = eina_stringshare_add("https://duckduckgo.com/?q=foo");
         config->helper.url.general = eina_stringshare_add("xdg-open");
         config->helper.url.video = eina_stringshare_add("xdg-open");
         config->helper.url.image = eina_stringshare_add("xdg-open");
@@ -834,6 +838,7 @@ config_fork(const Config *config)
    CPY(font.orig_bitmap);
    CPY(font.bolditalic);
    SCPY(helper.email);
+   SCPY(helper.web_search_url);
    SCPY(helper.url.general);
    SCPY(helper.url.video);
    SCPY(helper.url.image);
@@ -919,6 +924,7 @@ config_del(Config *config)
    free((void*)config->color_scheme);
    eina_stringshare_del(config->background);
    eina_stringshare_del(config->helper.email);
+   eina_stringshare_del(config->helper.web_search_url);
    eina_stringshare_del(config->helper.url.general);
    eina_stringshare_del(config->helper.url.video);
    eina_stringshare_del(config->helper.url.image);

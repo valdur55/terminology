@@ -73,6 +73,7 @@ _CB(helper.url.general, helper_url_general);
 _CB(helper.local.image, helper_local_image);
 _CB(helper.local.video, helper_local_video);
 _CB(helper.local.general, helper_local_general);
+_CB(helper.web_search_url, web_search_url);
 #undef _CB
 
 static void
@@ -274,6 +275,9 @@ options_mouse(Evas_Object *opbox, Evas_Object *term)
    HELPERS_LINE(_("Local (Images):"), helper.local.image,   helper_local_image);
    HELPERS_LINE(_("Local (Video):"),  helper.local.video,   helper_local_video);
    HELPERS_LINE(_("Local (All):"),    helper.local.general, helper_local_general);
+
+   OPTIONS_SEPARATOR;
+    HELPERS_LINE(_("Web search url:"), helper.web_search_url,   web_search_url);
 
 #undef HELPERS_LINE
 }
