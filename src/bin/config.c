@@ -545,7 +545,7 @@ config_new(void)
         config->font.size = 10;
         config->font.bolditalic = EINA_TRUE;
         config->helper.email = eina_stringshare_add("xdg-email");
-        config->helper.web_search_url = eina_stringshare_add("https://duckduckgo.com/?q=foo");
+        config->helper.web_search_url = eina_stringshare_add("https://duckduckgo.com/?q=");
         config->helper.url.general = eina_stringshare_add("xdg-open");
         config->helper.url.video = eina_stringshare_add("xdg-open");
         config->helper.url.image = eina_stringshare_add("xdg-open");
